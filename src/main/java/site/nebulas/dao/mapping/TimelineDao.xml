@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.TimelineDao">
+
+
+	<select id="queryByParam" resultType="Timeline">
+		select 
+			timeline_id timelineId,
+			timeline_caption timelineCaption,
+			timeline_content timelineContent,
+			timeline_add_time timelineAddTime
+		from timeline 
+		<where> 
+			<if test="timelineId != null">
+				and exercises_id = #{exercisesId}
+			</if>
+			<if test="timelineCaption !=null and timelineCaption !='' ">
+				and timeline_caption = #{timelineCaption}
+			</if>
+		</where>
+		ORDER BY timeline_add_time DESC
+	</select>
+	
+	<insert id="inster">
+		insert into timeline(timeline_caption, timeline_content,timeline_add_time) 
+					 values(#{timelineCaption},#{timelineContent},#{timelineAddTime})
+	</insert>
+	
+	<update id="update">
+		update timeline
+		<set>
+			<if test="timelineId !=null">
+				timeline_id = #{timelineId},
+			</if>
+			<if test="timelineCaption !=null and timelineCaption !='' ">
+				timeline_caption = #{timelineCaption},
+			</if>
+			<if test="timelineContent !=null and timelineContent !='' ">
+				timeline_content = #{timelineContent},
+			</if>
+			<if test="timelineAddTime !=null and timelineAddTime !='' ">
+				timeline_add_time = #{timelineAddTime},
+			</if>
+		</set>
+		where timeline_id = #{timelineId}
+	</update>
+	
+	
+	<delete id="delete">
+		delete from timeline 
+		where timeline_id = #{timelineId}
+	</delete>
+
+</mapper>

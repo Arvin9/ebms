@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.ExercisesDao">
+
+
+	<select id="queryByParam" resultType="Exercises">
+		select 
+			exercises_id exercisesId, 
+			exercises_title exercisesTitle,
+			exercises_content exercisesContent,
+			exercises_answer exercisesAnswer, 
+			exercises_difficulty_level exercisesDifficultyLevel,
+			exercises_integral exercisesIntegral,
+			exercises_hint exercisesHint,
+			answer_count answerCount,
+			answer_correct_count answerCorrectCount
+		from exercises 
+		<where> 
+			<if test="exercisesId != null">
+				and exercises_id = #{exercisesId}
+			</if>
+			<if test="exercisesTitle !=null and exercisesTitle !='' ">
+				and exercises_title = #{exercisesTitle}
+			</if>
+		</where>
+		ORDER BY exercises_id DESC
+	</select>
+	
+	<insert id="inster">
+		insert into exercises(exercises_title, exercises_content,exercises_answer,exercises_difficulty_level,exercises_integral,exercises_hint) 
+					 values(#{exercisesTitle},#{exercisesContent},#{exercisesAnswer},#{exercisesDifficultyLevel}, #{exercisesIntegral},#{exercisesHint})
+	</insert>
+	
+	<update id="update">
+		update exercises
+		<set>
+			<if test="exercisesId !=null">
+				exercises_id = #{exercisesId},
+			</if>
+			<if test="exercisesTitle !=null and exercisesTitle !='' ">
+				exercises_title = #{exercisesTitle},
+			</if>
+			<if test="exercisesContent !=null and exercisesContent !='' ">
+				exercises_content = #{exercisesContent},
+			</if>
+			<if test="exercisesAnswer !=null and exercisesAnswer !='' ">
+				exercises_answer = #{exercisesAnswer},
+			</if>
+			<if test="exercisesHint !=null and exercisesHint !='' ">
+				exercises_hint = #{exercisesHint},
+			</if>
+			<if test="exercisesDifficultyLevel !=null">
+				exercises_difficulty_level = #{exercisesDifficultyLevel},
+			</if>
+			<if test="exercisesIntegral !=null">
+				exercises_integral = #{exercisesIntegral},
+			</if>
+		</set>
+		where exercises_id = #{exercisesId}
+	</update>
+	
+	
+	<delete id="delete">
+		delete from exercises 
+		where exercises_id = #{exercisesId}
+	</delete>
+
+</mapper>

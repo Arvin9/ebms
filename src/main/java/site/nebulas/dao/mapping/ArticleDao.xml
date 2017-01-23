@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.ArticleDao">
+
+
+	<select id="queryByParam" resultType="Article">
+		select 
+			article_id articleId, 
+			article_caption articleCaption,
+			article_digest articleDigest,
+			article_author articleAuthor, 
+			user_account userAccount,
+			article_create_time articleCreateTime,
+			article_update_time articleUpdateTime,
+			article_content articleContent,
+			article_remark articleRemark,
+			article_page_view articlePageView,
+			article_like articleLike,
+			article_dislike articleDislike,
+			article_states articleStates
+		from article 
+		<where> 
+			<if test="articleId != null">
+				and article_id = #{articleId}
+			</if>
+			<if test="articleCaption !=null and articleCaption !='' ">
+				and article_caption = #{articleCaption}
+			</if>
+		</where>
+		ORDER BY article_update_time DESC
+	</select>
+	
+	<select id="queryForShow" resultType="Article">
+		select 
+			article_id articleId, 
+			article_caption articleCaption,
+			article_digest articleDigest,
+			article_update_time articleUpdateTime,
+			article_page_view articlePageView
+		from article 
+		where article_states = 1
+		ORDER BY article_update_time DESC
+	</select>
+	
+	<insert id="inster">
+		insert into 
+		article(article_caption, article_digest,article_author,user_account,article_create_time,article_update_time,article_content,article_remark) 
+		values(#{articleCaption},#{articleDigest},#{articleAuthor},#{userAccount}, #{articleCreateTime},#{articleUpdateTime},#{articleContent},#{articleRemark})
+	</insert>
+	
+	<update id="update">
+		update article
+		<set>
+			<if test="articleCaption !=null and articleCaption !=''">
+				article_caption = #{articleCaption},
+			</if>
+			<if test="articleDigest !=null and articleDigest !='' ">
+				article_digest = #{articleDigest},
+			</if>
+			<if test="articleAuthor !=null and articleAuthor !='' ">
+				article_author = #{articleAuthor},
+			</if>
+			<if test="articleUpdateTime !=null and articleUpdateTime !='' ">
+				article_update_time = #{articleUpdateTime},
+			</if>
+			<if test="articleContent !=null and articleContent !='' ">
+				article_content = #{articleContent},
+			</if>
+			<if test="articleRemark !=null and articleRemark !=''">
+				article_remark = #{articleRemark},
+			</if>
+			<if test="articlePageView !=null">
+				article_page_view = #{articlePageView},
+			</if>
+			<if test="articleLike !=null">
+				article_like = #{articleLike},
+			</if>
+			<if test="articleDislike != null">
+				article_dislike = #{articleDislike},
+			</if>
+			<if test="articleStates != null">
+				article_states = #{articleStates},
+			</if>
+		</set>
+		where article_id = #{articleId}
+	</update>
+	
+	<delete id="delete">
+		delete from exercises 
+		where article_id = #{articleId}
+	</delete>
+	
+	<update id="articleLikeIncrease">
+		update article
+		set article_like = article_like + 1
+		where article_id = #{articleId}
+	</update>
+	
+	<update id="articleDisLikeIncrease">
+		update article
+		set article_dislike = article_dislike + 1
+		where article_id = #{articleId}
+	</update>
+	
+	<update id="articlePageViewIncrease">
+		update article
+		set article_page_view = article_page_view + 1
+		where article_id = #{articleId}
+	</update>
+
+</mapper>

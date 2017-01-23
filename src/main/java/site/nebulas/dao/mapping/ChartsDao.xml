@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.ChartsDao">
+
+	<select id="queryUserVisitPage" resultType="java.util.Map">
+		SELECT dynamic_tyle dynamicTyle ,COUNT(*) amount
+		FROM dynamic
+		GROUP BY dynamic_tyle
+	</select>
+	
+	<select id="queryUserLoginCount" resultType="java.util.Map">
+		SELECT LEFT(login_time,10) loginTime,COUNT(*) amount
+		FROM log_login
+		WHERE login_state = 1
+		GROUP BY loginTime
+		ORDER BY loginTime ASC
+	</select>
+
+</mapper>
