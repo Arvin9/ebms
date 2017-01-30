@@ -42,7 +42,7 @@
                             <input class="form-control" type="text" name="userAccount" id="userAccount" placeholder="用户名">
                         </div>
                         <div class="form-group" >
-                            <input class="form-control" type="password" name="bePassword" id="bePassword" placeholder="密码">
+                            <input class="form-control" type="password"  id="bePassword" placeholder="密码">
                         </div>
                         <div class="form-group" hidden="hidden">
                             <input class="form-control" type="password" name="password" id="password" >

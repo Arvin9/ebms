@@ -29,9 +29,9 @@ public class PageController {
 	public ModelAndView home(){
 		ModelAndView model = new ModelAndView("home");
 		//用户访问页面数据量
-		model.addObject("userVisitPageMap", JSON.toJSON(chartsService.queryUserVisitPage()));
+		//model.addObject("userVisitPageMap", JSON.toJSON(chartsService.queryUserVisitPage()));
 		//每日用户登录量
-		model.addObject("userLoginCountMap", JSON.toJSON(chartsService.queryUserLoginCount()));
+		//model.addObject("userLoginCountMap", JSON.toJSON(chartsService.queryUserLoginCount()));
 		return model;
 	}
 	

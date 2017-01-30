@@ -10,17 +10,17 @@
 			password password,
 			salt salt, 
 			add_time addTime
-		from ad_user 
+		from think_ad_user
 		where user_account = #{userAccount}
 	</select>
 	
 	<insert id="createUser">
-		insert into user(role_id,user_account,user_mailbox,password,salt,real_name,add_time,is_lock,add_man,is_delete) 
+		insert into think_ad_user(role_id,user_account,user_mailbox,password,salt,real_name,add_time,is_lock,add_man,is_delete)
 		values(#{roleId},#{userAccount},#{userMailbox},#{password}, #{salt},#{realName},#{addTime},#{isLock},#{addMan},#{isDelete})
 	</insert>
 	
 	<update id="updateUser">
-		update user
+		update think_ad_user
 		<set>
 			<if test="roleId !=null">
 				role_id = #{roleId},
