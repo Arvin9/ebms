@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-lg-12">
-	                        <h1 class="page-header">习题</h1>
+	                        <h1 class="page-header">题目</h1>
 	                    </div>
 	                    <!-- /.col-lg-12 -->
 	                </div>
@@ -53,49 +53,38 @@
 						      			<div class="form-group" hidden>
 						      				<div class="input-group">
 												<label class="input-group-addon">id</label>
-										    	<input type="text" class="form-control" id="exercisesId" name="exercisesId" placeholder="id">
+										    	<input type="text" class="form-control" id="id" name="id" placeholder="id">
 										   	</div>
 										</div>
 										<div class="form-group">
 						      				<div class="input-group">
 												<label class="input-group-addon">标题</label>
-										    	<input type="text" class="form-control" id="exercisesTitle" name="exercisesTitle"  required="required" />
+										    	<input type="text" class="form-control" id="caption" name="caption"  required="required" />
 										   	</div>
 										</div>
 										<div class="form-group">
 						      				<div class="input-group">
-												<label class="input-group-addon">内容</label>
-										    	<textarea type="text" class="form-control" rows="10" style="width:100%" id="exercisesContent" name="exercisesContent" required="required"></textarea>
-										   	</div>
-										</div>
-										<div class="form-group">
-						      				<div class="input-group">
-												<label class="input-group-addon">提示</label>
-										    	<input type="text" class="form-control" id="exercisesHint" name="exercisesHint" required="required" />
+												<label class="input-group-addon">题目</label>
+										    	<textarea type="text" class="form-control" rows="10" style="width:100%" id="subject" name="subject" required="required"></textarea>
 										   	</div>
 										</div>
 										<div class="form-group">
 						      				<div class="input-group">
 												<label class="input-group-addon">答案</label>
-										    	<input type="text" class="form-control" id="exercisesAnswer" name="exercisesAnswer" required>
+										    	<input type="text" class="form-control" id="solution" name="solution" required>
 										   	</div>
 										</div>
 										<div class="form-group">
 						      				<div class="input-group">
-												<label class="input-group-addon">困难度</label>
-										    	<select class="form-control" id="exercisesDifficultyLevel" name="exercisesDifficultyLevel" required>
-													<option value ="1">简单</option>
-													<option value ="2">中等</option>
-													<option value ="3">困难</option>
+												<label class="input-group-addon">类别</label>
+										    	<select class="form-control" id="categoryId" name="categoryId" required>
+													<c:forEach items="${categoryList}" var="category">
+														<option value ="${category.id}">${category.name}</option>
+													</c:forEach>
 												</select>
 										   	</div>
 										</div>
-										<div class="form-group">
-						      				<div class="input-group">
-												<label class="input-group-addon">积分值</label>
-										    	<input type="text" class="form-control" id="exercisesIntegral" name="exercisesIntegral" required>
-										   	</div>
-										</div>
+
 					      			</form>
 					      		</div>
 					      		<div class="modal-footer">
@@ -132,7 +121,7 @@
 		$(function(){
 			Exercises.init();
 			$('#table').bootstrapTable({
-				url: '${ctx}/exercisesQueryByParam',
+				url: '${ctx}/blankfillQueryByParam',
 				toolbar: "#toolbar",
 				height: $(window).height() - 200,
 				cache: false,
@@ -150,64 +139,36 @@
 			    	checkbox : true,
 			    	align: "center"
 			    },{
-			        field: 'exercisesId',
+			        field: 'id',
 			        title: 'ID',
 			        align: "center",
 			        valign: "middle",
 			        sortable: true
 			    },{
-			        field: 'exercisesTitle',
+			        field: 'caption',
 			        align: "center",
 			        valign: "middle",
 			        title: '标题'
 			    },{
-			        field: 'exercisesContent',
+					field: 'category',
+					align: "center",
+					valign: "middle",
+					title: '类别'
+				},{
+			        field: 'subject',
 			        halign: "center",
 			        align: "left",
-			        title: '内容'
+			        title: '题目'
 			    },{
-			        field: 'exercisesHint',
-			        align: "center",
-			        valign: "middle",
-			        title: '提示'
-			    },{
-			        field: 'exercisesAnswer',
+			        field: 'solution',
 			        align: "center",
 			        valign: "middle",
 			        title: '答案'
 			    },{
-			        field: 'exercisesDifficultyLevel',
+			        field: 'createTime',
 			        align: "center",
 			        valign: "middle",
-			        title: '困难度',
-			        formatter: function(value){
-			        	if(1 == value){
-			        		return "简单";
-			        	}
-			        	if(2 == value){
-			        		return "中等";
-			        	}
-			        	if(3 == value){
-			        		return "困难";
-			        	}
-			        	return value;
-			        }
-			    },{
-			        field: 'exercisesIntegral',
-			        align: "center",
-			        valign: "middle",
-			        title: '积分值'
-			    },{
-			        field: 'answerCount',
-			        align: "center",
-			        valign: "middle",
-			        title: '回答数',
-			        visible : false
-			    },{
-			        field: 'answerCorrectCount',
-			        align: "center",
-			        valign: "middle",
-			        title: '回答正确数',
+			        title: '创建时间',
 			        visible : false
 			    }]
 			});		
@@ -219,9 +180,10 @@
 				$('#Modal').modal('hide');
 			},
 			save: function(){
-			    if(!$('#exercisesTitle').val() || !$('#exercisesContent').val() || !$('#exercisesHint').val()
-			    		|| !$('#exercisesAnswer').val() || !$('#exercisesDifficultyLevel').val() || !$('#exercisesIntegral').val()){
+				console.info($('#categoryId').val());
+			    if(!$('#caption').val() || !$('#subject').val() || !$('#solution').val() || !$('#categoryId').val()){
 			    	$('#warningContent').text("所有输入框为必填项目,请补充完整后重试!");
+					console.info(1111);
 			    	$('#warningDiv').show();
 			    	return;
 			    }
@@ -230,11 +192,11 @@
 					url: Exercises.commitUrl,
 					data: $('#modalForm').serialize(),
 					success: function(msg){
-						if("exercisesInsert" == Exercises.commitUrl){
+						if("blankfillInsert" == Exercises.commitUrl){
 							$.messager.alert("消息","新增成功!" + msg);
 							$('#table').bootstrapTable('refresh');
 						}
-						if("exercisesUpdate" == Exercises.commitUrl){
+						if("blankfillUpdate" == Exercises.commitUrl){
 							$.messager.alert("消息","修改成功!" + msg);
 							$('#table').bootstrapTable('refresh');
 						}
@@ -246,7 +208,7 @@
 			insert: function() {
 				$('#modalForm').form('clear');
 				$('#Modal').modal('show');
-				Exercises.commitUrl = "exercisesInsert";
+				Exercises.commitUrl = "blankfillInsert";
 			},
 			update: function(){
 				var row = $('#table').bootstrapTable('getSelections');
@@ -256,10 +218,12 @@
 				}
 				row = row[0];
 				
-				Exercises.commitUrl = "exercisesUpdate";
+				Exercises.commitUrl = "blankfillUpdate";
 				
 				$('#modalForm').form('clear');
 				$('#modalForm').form('load',row);
+				$('#categoryId').val(row.categoryId);
+
 				$('#Modal').modal('show');
 				//alert('getSelections: ' + ;JSON.stringify(
 			},

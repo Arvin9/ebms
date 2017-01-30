@@ -11,7 +11,6 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import site.nebulas.controller.FileUploadController;
 
 public class FTPUtil {
 	private Logger logger = LoggerFactory.getLogger(FTPUtil.class);

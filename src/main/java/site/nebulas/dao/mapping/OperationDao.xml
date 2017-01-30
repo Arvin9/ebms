@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.OperationDao">
+
+
+	<select id="queryByParam" resultType="Operation">
+		select
+			id id,
+			user_account userAccount,
+			content content,
+			create_time createTime
+		from think_operation
+		<where> 
+			<if test="userAccount != null and userAccount != ''">
+				and user_account = #{userAccount}
+			</if>
+			<if test="content != null and content !='' ">
+				and content like  '%${content}%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="inster">
+		insert into
+		think_operation(
+			user_account,
+			content,
+			create_time
+		)
+		values(
+			#{userAccount},
+			#{content},
+			#{createTime}
+		)
+	</insert>
+
+</mapper>

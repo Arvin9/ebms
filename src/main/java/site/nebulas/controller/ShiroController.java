@@ -18,9 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import site.nebulas.beans.LogLogin;
+
 import site.nebulas.beans.Response;
 import site.nebulas.beans.User;
+import site.nebulas.service.OperationService;
 import site.nebulas.service.PasswordHelper;
 import site.nebulas.service.UserService;
 
@@ -36,7 +37,9 @@ public class ShiroController {
 	Logger log=LoggerFactory.getLogger(getClass());
 	@Resource
 	UserService userService;
-	
+	@Resource
+	OperationService operationService;
+
 	@RequestMapping("loginIn")
 	public String loginIn(Model model,User user){
 		String userAccount = user.getUserAccount();
@@ -50,10 +53,10 @@ public class ShiroController {
 			Session session = subject.getSession(); 
 			
 			try {
-				 subject.login(token);
-				
-//				 System.out.println("用户是否是通过验证登陆："+subject.isAuthenticated());
-//				 System.out.println("用户是否是通过记住我登陆："+subject.isRemembered());
+				subject.login(token);
+				operationService.inster(userAccount,"登陆成功");
+//				System.out.println("用户是否是通过验证登陆："+subject.isAuthenticated());
+//				System.out.println("用户是否是通过记住我登陆："+subject.isRemembered());
 			}catch(UnknownAccountException uae){
 	            System.out.println("对用户[" + userAccount + "]进行登录验证..验证未通过,未知账户");  
 	            model.addAttribute("message", "no");

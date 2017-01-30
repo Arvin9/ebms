@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.BlankfillDao">
+
+
+	<select id="queryByParam" resultType="Blankfill">
+		select
+			b.id id,
+			b.caption caption,
+			b.`subject` `subject`,
+			b.solution solution,
+			c.id categoryId,
+			c.`name` category,
+			b.create_time createTime
+		from think_blankfill b
+		left join think_category c
+		on b.category_id = c.id
+		<where> 
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="caption !=null and caption !='' ">
+				and caption = #{caption}
+			</if>
+		</where>
+		ORDER BY b.create_time DESC
+	</select>
+	
+	<insert id="inster">
+		insert into
+		think_blankfill(
+			caption,
+			subject,
+			solution,
+			create_time,
+			category_id
+		)
+		values(
+			#{caption},
+			#{subject},
+			#{solution},
+			#{createTime},
+			#{categoryId}
+		)
+	</insert>
+	
+	<update id="update">
+		update think_blankfill
+		<set>
+			<if test="caption != null and caption != ''">
+				caption = #{caption},
+			</if>
+			<if test="subject != null and subject != '' ">
+				subject = #{subject},
+			</if>
+			<if test="solution != null and solution != '' ">
+				solution = #{solution},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>

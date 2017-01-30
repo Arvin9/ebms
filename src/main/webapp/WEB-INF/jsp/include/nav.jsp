@@ -273,7 +273,7 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="exercises">习题</a>
+                                    <a href="blankfill">题目</a>
                                 </li>
                                 <li>
                                     <a href="article">文章</a>
