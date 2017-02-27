@@ -8,8 +8,8 @@ package site.nebulas.beans;
  */
 public class Dynamic {
     private Integer id;
-    private Integer user_id;
-    private Integer action_id;
+    private String userAccount; // 用户名
+    private String actionDescription; // 动态描述
     private String createTime;
 
     public Integer getId() {
@@ -20,20 +20,21 @@ public class Dynamic {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+
+    public String getUserAccount() {
+        return userAccount;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
     }
 
-    public Integer getAction_id() {
-        return action_id;
+    public String getActionDescription() {
+        return actionDescription;
     }
 
-    public void setAction_id(Integer action_id) {
-        this.action_id = action_id;
+    public void setActionDescription(String actionDescription) {
+        this.actionDescription = actionDescription;
     }
 
     public String getCreateTime() {

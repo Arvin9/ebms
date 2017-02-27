@@ -282,6 +282,9 @@
                                     <a href="action">事件（用户动态）管理</a>
                                 </li>
                                 <li>
+                                    <a href="dynamic">用户动态查询</a>
+                                </li>
+                                <li>
                                     <a href="timeline">时间轴</a>
                                 </li>
                             </ul>

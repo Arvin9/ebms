@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.DynamicDao">
+
+	<select id="queryByParam" resultType="Dynamic">
+		select
+			d.id id,
+			u.account userAccount,
+			a.description actionDescription,
+			d.create_time createTime
+		from (think_dynamic d
+			left join think_user u
+			on d.user_id = u.id)
+		left join think_action a
+		on d.action_id = a.id
+		<where> 
+			<if test="id != null">
+				and id = #{id}
+			</if>
+		</where>
+		ORDER BY d.create_time DESC
+	</select>
+	
+
+</mapper>
