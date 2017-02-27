@@ -285,6 +285,9 @@
                                     <a href="dynamic">用户动态查询</a>
                                 </li>
                                 <li>
+                                    <a href="operation">管理员操作记录</a>
+                                </li>
+                                <li>
                                     <a href="timeline">时间轴</a>
                                 </li>
                             </ul>
