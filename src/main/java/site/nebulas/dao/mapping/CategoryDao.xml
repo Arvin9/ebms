@@ -46,5 +46,8 @@
 		</set>
 		where id = #{id}
 	</update>
-
+	<delete id="delete">
+		delete from think_category
+		where id = #{id}
+	</delete>
 </mapper>

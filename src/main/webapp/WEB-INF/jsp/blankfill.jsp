@@ -10,7 +10,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	
-	    <title>Home</title>
+	    <title>题目管理</title>
 		<jsp:include page="include/header.jsp"></jsp:include>
 		
 
@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-lg-12">
-	                        <h1 class="page-header">题目</h1>
+	                        <h1 class="page-header">题目管理</h1>
 	                    </div>
 	                    <!-- /.col-lg-12 -->
 	                </div>
@@ -36,7 +36,7 @@
 							<div class="modal-content">
 					      		<div class="modal-header">
 					        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					        		<h4 class="modal-title" id="ModalLabel">Modal title</h4>
+					        		<h4 class="modal-title" id="ModalLabel">添加</h4>
 					      		</div>
 					      		<div class="modal-body">
 					      			<form id="modalForm" role="form" method="post"  enctype="multipart/form-data">
@@ -98,7 +98,7 @@
 	                
 	                <div id="toolbar">
 	                	<button id="insert" class="btn btn-success" onclick="Exercises.insert()">
-				            <i class="glyphicon glyphicon-plus"></i> 增加
+				            <i class="glyphicon glyphicon-plus"></i> 添加
 				        </button>
 				        <button id="update" class="btn btn-warning" onclick="Exercises.update()">
 				            <i class="glyphicon glyphicon-pencil"></i> 修改
@@ -183,7 +183,6 @@
 				console.info($('#categoryId').val());
 			    if(!$('#caption').val() || !$('#subject').val() || !$('#solution').val() || !$('#categoryId').val()){
 			    	$('#warningContent').text("所有输入框为必填项目,请补充完整后重试!");
-					console.info(1111);
 			    	$('#warningDiv').show();
 			    	return;
 			    }
@@ -202,10 +201,10 @@
 						}
 					}
 				});
-				alert("save");
 				$('#Modal').modal('hide');
 			},
 			insert: function() {
+				$('#ModalLabel').text("添加");
 				$('#modalForm').form('clear');
 				$('#Modal').modal('show');
 				Exercises.commitUrl = "blankfillInsert";
@@ -219,7 +218,8 @@
 				row = row[0];
 				
 				Exercises.commitUrl = "blankfillUpdate";
-				
+
+				$('#ModalLabel').text("修改");
 				$('#modalForm').form('clear');
 				$('#modalForm').form('load',row);
 				$('#categoryId').val(row.categoryId);

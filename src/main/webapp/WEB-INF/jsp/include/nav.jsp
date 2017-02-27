@@ -273,6 +273,9 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
+                                    <a href="category">类别</a>
+                                </li>
+                                <li>
                                     <a href="blankfill">题目</a>
                                 </li>
                                 <li>

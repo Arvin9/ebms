@@ -1,7 +1,10 @@
 package site.nebulas.beans;
 
 /**
- * Created by Administrator on 2017/1/30.
+ * @author Honghui
+ * @version 0.2 20170227
+ *
+ * 类别
  */
 public class Category {
     private Integer id;

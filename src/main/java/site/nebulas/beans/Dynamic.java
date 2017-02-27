@@ -4,35 +4,42 @@ package site.nebulas.beans;
  * @author Honghui
  * @version 0.2 20170227
  *
- * 管理员操作记录
+ * 用户动态
  */
-public class Operation {
+public class Dynamic {
     private Integer id;
-    private String userAccount;
-    private String content;
+    private Integer user_id;
+    private Integer action_id;
     private String createTime;
 
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getUserAccount() {
-        return userAccount;
+
+    public Integer getUser_id() {
+        return user_id;
     }
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
-    public String getContent() {
-        return content;
+
+    public Integer getAction_id() {
+        return action_id;
     }
-    public void setContent(String content) {
-        this.content = content;
+
+    public void setAction_id(Integer action_id) {
+        this.action_id = action_id;
     }
+
     public String getCreateTime() {
         return createTime;
     }
+
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }

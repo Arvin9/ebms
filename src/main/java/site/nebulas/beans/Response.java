@@ -1,9 +1,10 @@
 package site.nebulas.beans;
 
 /**
- * @author CaiHonghui
- * 20160812 
- * @version 0.1
+ * @author Honghui
+ * @version 0.1 20160812
+ *
+ * 返回信息
  */
 public class Response {
 	private Integer ret; //返回状态
