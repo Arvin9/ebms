@@ -273,13 +273,13 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="category">类别</a>
+                                    <a href="category">类别管理</a>
                                 </li>
                                 <li>
-                                    <a href="blankfill">题目</a>
+                                    <a href="blankfill">题目管理</a>
                                 </li>
                                 <li>
-                                    <a href="article">文章</a>
+                                    <a href="action">事件（用户动态）管理</a>
                                 </li>
                                 <li>
                                     <a href="timeline">时间轴</a>

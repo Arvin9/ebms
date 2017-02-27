@@ -4,8 +4,9 @@ package site.nebulas.beans;
 import java.io.Serializable;
 
 /**
- * @author CaiHonghui
- * @since 20160808
+ * @author Honghui
+ * @since 0.2 20170227
+ * 管理员
  */
 public class Master implements Serializable {
     private String userId;

@@ -103,7 +103,7 @@
 				        <button id="update" class="btn btn-warning" onclick="Exercises.update()">
 				            <i class="glyphicon glyphicon-pencil"></i> 修改
 				        </button>
-				        <button id="remove" class="btn btn-danger" onclick="Exercises.remove()">
+				        <button id="remove" class="btn btn-danger" onclick="Exercises.remove()" disabled="disabled">
 				            <i class="glyphicon glyphicon-remove"></i> 删除
 				        </button>
 				    </div>

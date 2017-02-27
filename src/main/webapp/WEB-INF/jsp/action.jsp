@@ -11,7 +11,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	
-	    <title>类别管理</title>
+	    <title>事件（用户动态）管理</title>
 		<jsp:include page="include/header.jsp"></jsp:include>
 		
 
@@ -26,7 +26,7 @@
 				<div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-lg-12">
-	                        <h1 class="page-header">类别管理</h1>
+	                        <h1 class="page-header">事件（用户动态）管理</h1>
 	                    </div>
 	                    <!-- /.col-lg-12 -->
 	                </div>
@@ -58,32 +58,44 @@
 										</div>
 										<div class="form-group">
 											<div class="input-group">
-												<label class="input-group-addon">类别名</label>
-												<input type="text" class="form-control" id="name" name="name"  required="required" />
+												<label class="input-group-addon">描述</label>
+												<input type="text" class="form-control" id="description" name="description"  required="required" />
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<label class="input-group-addon">备注</label>
+												<input type="text" class="form-control" id="remark" name="remark"  required="required" />
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<label class="input-group-addon">url</label>
+												<input type="text" class="form-control" id="url" name="url"  required="required" readonly/>
 											</div>
 										</div>
 									</form>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-primary" onclick="Category.save()">保存</button>
+									<button type="button" class="btn btn-primary" onclick="Action.save()">保存</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div id="toolbar">
-						<button id="insert" class="btn btn-success" onclick="Category.insert()">
+						<button id="insert" class="btn btn-success" onclick="Action.insert()" disabled="disabled">
 							<i class="glyphicon glyphicon-plus"></i> 添加
 						</button>
-						<button id="update" class="btn btn-warning" onclick="Category.update()">
+						<button id="update" class="btn btn-warning" onclick="Action.update()">
 							<i class="glyphicon glyphicon-pencil"></i> 修改
 						</button>
-						<button id="remove" class="btn btn-danger" onclick="Category.remove()" disabled="disabled">
+						<button id="remove" class="btn btn-danger" onclick="Action.remove()" disabled="disabled">
 							<i class="glyphicon glyphicon-remove"></i> 删除
 						</button>
 					</div>
 					<table id="table"></table>
-	                
+
 	            </div>
 			</div>
 
@@ -94,9 +106,9 @@
 		
 		<script type="text/javascript">
 			$(function(){
-				Category.init();
+				Action.init();
 				$('#table').bootstrapTable({
-					url: '${ctx}/categoryQueryByParam',
+					url: '${ctx}/actionQueryByParam',
 					toolbar: "#toolbar",
 					height: $(window).height() - 200,
 					cache: false,
@@ -118,12 +130,23 @@
 						title: 'ID',
 						align: "center",
 						valign: "middle",
-						sortable: true
+						sortable: true,
+						visible: false
 					},{
-						field: 'name',
+						field: 'description',
 						align: "center",
 						valign: "middle",
-						title: '名称'
+						title: '描述'
+					},{
+						field: 'remark',
+						align: "center",
+						valign: "middle",
+						title: '备注'
+					},{
+						field: 'url',
+						align: "center",
+						valign: "middle",
+						title: 'url'
 					},{
 						field: 'createTime',
 						align: "center",
@@ -133,28 +156,28 @@
 					}]
 				});
 			});
-			var Category = {
+			var Action = {
 				commitUrl : "",
 
 				init: function() {
 					$('#Modal').modal('hide');
 				},
 				save: function(){
-					if(!$('#name').val()){
-						$('#warningContent').text("类别名不能为空,请补充完整后重试!");
+					if(!$('#description').val()){
+						$('#warningContent').text("描述不能为空,请补充完整后重试!");
 						$('#warningDiv').show();
 						return;
 					}
 					$.ajax({
 						type: "POST",
-						url: Category.commitUrl,
+						url: Action.commitUrl,
 						data: $('#modalForm').serialize(),
 						success: function(msg){
-							if("categoryInsert" == Category.commitUrl){
+							if("actionInsert" == Action.commitUrl){
 								$.messager.alert("消息","新增成功!" + msg);
 								$('#table').bootstrapTable('refresh');
 							}
-							if("categoryUpdate" == Category.commitUrl){
+							if("actionUpdate" == Action.commitUrl){
 								$.messager.alert("消息","修改成功!" + msg);
 								$('#table').bootstrapTable('refresh');
 							}
@@ -166,7 +189,7 @@
 					$('#modalForm').form('clear');
 					$('#ModalLabel').text("添加");
 					$('#Modal').modal('show');
-					Category.commitUrl = "categoryInsert";
+					Action.commitUrl = "actionInsert";
 				},
 				update: function(){
 					var row = $('#table').bootstrapTable('getSelections');
@@ -176,7 +199,7 @@
 					}
 					row = row[0];
 
-					Category.commitUrl = "categoryUpdate";
+					Action.commitUrl = "actionUpdate";
 
 					$('#modalForm').form('clear');
 					$('#ModalLabel').text("修改");
@@ -185,7 +208,7 @@
 					$('#Modal').modal('show');
 				},
 				remove: function(){
-					Category.commitUrl = "";
+					Action.commitUrl = "";
 
 					var row = $('#table').bootstrapTable('getSelections');
 					if ("" == row){
@@ -202,6 +225,7 @@
 					});
 				}
 			};
+		
 		</script>
 		
 	</body>
