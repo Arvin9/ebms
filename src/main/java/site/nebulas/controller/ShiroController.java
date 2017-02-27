@@ -16,14 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import site.nebulas.beans.Response;
-import site.nebulas.beans.User;
+import site.nebulas.beans.Master;
 import site.nebulas.service.OperationService;
-import site.nebulas.service.PasswordHelper;
-import site.nebulas.service.UserService;
+import site.nebulas.service.MasterService;
 
 
 /**
@@ -36,14 +33,14 @@ public class ShiroController {
 
 	Logger log=LoggerFactory.getLogger(getClass());
 	@Resource
-	UserService userService;
+	MasterService masterService;
 	@Resource
 	OperationService operationService;
 
 	@RequestMapping("loginIn")
-	public String loginIn(Model model,User user){
-		String userAccount = user.getUserAccount();
-		String password = user.getPassword();
+	public String loginIn(Model model,Master master){
+		String userAccount = master.getUserAccount();
+		String password = master.getPassword();
 		
 		log.info(userAccount + " " + password);
 		

@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import site.nebulas.service.ChartsService;
-import site.nebulas.service.UserService;
+import site.nebulas.service.MasterService;
 
 
 
 @Controller
 public class PageController {
 	@Resource
-	UserService userService;
+    MasterService masterService;
 	@Resource
 	ChartsService chartsService;
 	

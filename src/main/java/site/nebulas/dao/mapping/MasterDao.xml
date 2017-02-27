@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="site.nebulas.dao.UserDao">
+<mapper namespace="site.nebulas.dao.MasterDao">
 
 
-	<select id="findByUserAccount" resultType="User">
+	<select id="findByUserAccount" resultType="Master">
 		select 
 			user_id userId, 
 			user_account userAccount,

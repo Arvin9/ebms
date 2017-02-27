@@ -1,7 +1,7 @@
 package site.nebulas.realm;
 
-import site.nebulas.beans.User;
-import site.nebulas.service.UserService;
+import site.nebulas.beans.Master;
+import site.nebulas.service.MasterService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -14,12 +14,12 @@ import org.apache.shiro.util.ByteSource;
  * @since 20160808
  * 
  */
-public class UserRealm extends AuthorizingRealm {
+public class MasterRealm extends AuthorizingRealm {
 
-    private UserService userService;
+    private MasterService masterService;
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setMasterService(MasterService masterService) {
+        this.masterService = masterService;
     }
 
     @Override
@@ -38,21 +38,21 @@ public class UserRealm extends AuthorizingRealm {
 
         String username = (String)token.getPrincipal();
 
-        User user = userService.findByUserAccount(username);
+        Master master = masterService.findByUserAccount(username);
 
-        if(user == null) {
+        if(master == null) {
             throw new UnknownAccountException();//没找到帐号
         }
 
-        if(Boolean.TRUE.equals(user.getIsLock())) {
+        if(Boolean.TRUE.equals(master.getIsLock())) {
             throw new LockedAccountException(); //帐号锁定
         }
 
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getUserAccount(), //用户名
-                user.getPassword(), //密码
-                ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=userAccount+salt
+                master.getUserAccount(), //用户名
+                master.getPassword(), //密码
+                ByteSource.Util.bytes(master.getCredentialsSalt()),//salt=userAccount+salt
                 getName()  //realm name
         );
         return authenticationInfo;

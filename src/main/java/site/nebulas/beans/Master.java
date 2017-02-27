@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author CaiHonghui
  * @since 20160808
  */
-public class User implements Serializable {
+public class Master implements Serializable {
     private String userId;
     private String userAccount;
     private String password;

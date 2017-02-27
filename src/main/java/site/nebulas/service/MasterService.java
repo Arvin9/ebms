@@ -2,16 +2,16 @@ package site.nebulas.service;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-import site.nebulas.beans.User;
-import site.nebulas.dao.UserDao;
+import site.nebulas.beans.Master;
+import site.nebulas.dao.MasterDao;
 
 
 @Service
-public class UserService {
+public class MasterService {
 	@Resource
-	private UserDao userDao;
+	private MasterDao userDao;
 
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(MasterDao userDao) {
         this.userDao = userDao;
     }
     @Resource
@@ -27,19 +27,19 @@ public class UserService {
      * @return
      * 根据用户名查找用户
      */
-    public User findByUserAccount(String userAccount) {
+    public Master findByUserAccount(String userAccount) {
         return userDao.findByUserAccount(userAccount);
     }
     
     /**
      * @author Honghui
      * 创建用户
-     * @param user
+     * @param master
      */
-    public void createUser(User user) {
+    public void createUser(Master master) {
         //加密密码
-        passwordHelper.encryptPassword(user);
-        userDao.createUser(user);
+        passwordHelper.encryptPassword(master);
+        userDao.createUser(master);
     }
     
 
@@ -49,10 +49,10 @@ public class UserService {
      * @param newPassword
      */
     public void changePassword(String userAccount, String newPassword) {
-        User user =userDao.findByUserAccount(userAccount);
-        user.setPassword(newPassword);
-        passwordHelper.encryptPassword(user);
-        userDao.updateUser(user);
+        Master master =userDao.findByUserAccount(userAccount);
+        master.setPassword(newPassword);
+        passwordHelper.encryptPassword(master);
+        userDao.updateUser(master);
     }
 
     

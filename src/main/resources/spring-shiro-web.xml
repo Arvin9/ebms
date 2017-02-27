@@ -20,8 +20,8 @@
     </bean>
 
     <!-- Realm实现 -->
-    <bean id="userRealm" class="site.nebulas.realm.UserRealm">
-        <property name="userService" ref="userService"/>
+    <bean id="userRealm" class="site.nebulas.realm.MasterRealm">
+        <property name="masterService" ref="masterService"/>
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
