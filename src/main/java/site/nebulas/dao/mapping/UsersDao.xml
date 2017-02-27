@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nebulas.dao.UsersDao">
+
+	<select id="queryByParam" resultType="Users">
+		select
+			id id,
+			account account,
+			mailbox mailbox,
+			password password,
+			salt salt,
+			real_name realName,
+			add_time addTime,
+			is_lock isLock,
+			add_man addMan
+		from think_user
+		<where> 
+			<if test="id != null">
+				and id = #{id}
+			</if>
+		</where>
+		ORDER BY add_time DESC
+	</select>
+	
+	<insert id="inster">
+		insert into
+		think_user(
+			id ,
+			account ,
+			mailbox ,
+			password ,
+			salt ,
+			real_name ,
+			add_time ,
+			is_lock ,
+			add_man
+		)
+		values(
+			#{id},
+			#{account},
+			#{mailbox},
+			#{password},
+			#{salt},
+			#{realName},
+			#{addTime},
+			#{isLock},
+			#{addMan}
+		)
+	</insert>
+	
+	<update id="update">
+		update think_user
+		<set>
+			<if test="account != null and account != ''">
+				account = #{account},
+			</if>
+			<if test="mailbox != null and mailbox != '' ">
+				mailbox = #{mailbox},
+			</if>
+			<if test="password != null and password != '' ">
+				password = #{password},
+			</if>
+			<if test="salt != null and salt != ''">
+				salt = #{salt},
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName},
+			</if>
+			<if test="addTime != null and addTime != ''">
+				add_time = #{addTime},
+			</if>
+			<if test="isLock != null">
+				is_lock = #{isLock},
+			</if>
+			<if test="addMan != null and addMan != ''">
+				add_man = #{addMan},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>

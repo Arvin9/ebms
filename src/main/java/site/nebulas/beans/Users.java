@@ -5,9 +5,8 @@ package site.nebulas.beans;
  * @since 0.2 20170227
  * 用户
  */
-public class User {
+public class Users {
     private Integer id;
-    private Integer roleId;
     private String account;
     private String mailbox;
     private String password;
@@ -16,7 +15,6 @@ public class User {
     private String addTime;
     private Integer isLock;
     private String addMan;
-    private Integer isDelete;
 
     public Integer getId() {
         return id;
@@ -24,14 +22,6 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public String getAccount() {
@@ -98,11 +88,4 @@ public class User {
         this.addMan = addMan;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
 }

@@ -288,6 +288,9 @@
                                     <a href="operation">管理员操作记录</a>
                                 </li>
                                 <li>
+                                    <a href="users">用户管理</a>
+                                </li>
+                                <li>
                                     <a href="timeline">时间轴</a>
                                 </li>
                             </ul>
