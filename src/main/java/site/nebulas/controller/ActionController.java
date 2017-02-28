@@ -43,10 +43,8 @@ public class ActionController {
     @ResponseBody
     public void actionInsert(Action action){
         action.setCreateTime(DateUtil.getTime());
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"添加用户动态事件:"+ JSON.toJSON(action));
+        // 写入操作记录
+        operationService.inster("添加用户动态事件:"+ JSON.toJSON(action));
 
         actionService.inster(action);
     }
@@ -54,10 +52,8 @@ public class ActionController {
     @RequestMapping("actionUpdate")
     @ResponseBody
     public void actionUpdate(Action action){
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"修改用户动态事件:"+ JSON.toJSON(action));
+        // 写入操作记录
+        operationService.inster("修改用户动态事件:"+ JSON.toJSON(action));
 
         actionService.update(action);
     }

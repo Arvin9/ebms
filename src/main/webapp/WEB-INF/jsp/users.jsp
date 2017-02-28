@@ -43,9 +43,11 @@
 										<div class="form-group" id="warningDiv" hidden>
 											<div class="input-group" style="width:100%">
 												<div class="alert alert-warning alert-dismissible" role="alert">
+													<!--
 													<button type="button" class="close" data-dismiss="alert">
 														<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 													</button>
+													-->
 													<strong>Warning!</strong> <span id="warningContent"></span>
 												</div>
 											</div>
@@ -58,15 +60,15 @@
 										</div>
 										<div class="form-group">
 											<div class="input-group">
-												<label class="input-group-addon">类别名</label>
-												<input type="text" class="form-control" id="name" name="name"  required="required" />
+												<label class="input-group-addon">用户名</label>
+												<input type="text" class="form-control" id="account" name="account"  required="required" />
 											</div>
 										</div>
 									</form>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-primary" onclick="Users.save()">保存</button>
+									<button type="button" class="btn btn-primary" id="saveButton" onclick="Users.save()" disabled="disabled">保存</button>
 								</div>
 							</div>
 						</div>
@@ -165,6 +167,8 @@
 						sortable: true
 					}]
 				});
+				// 输入用户名是动态验证用户名是否有效
+				$("#account").keyup(isValidityOfUserName);
 			});
 			var Users = {
 				commitUrl : "",
@@ -173,8 +177,8 @@
 					$('#Modal').modal('hide');
 				},
 				save: function(){
-					if(!$('#name').val()){
-						$('#warningContent').text("类别名不能为空,请补充完整后重试!");
+					if(!$('#account').val()){
+						$('#warningContent').text("用户名不能为空,请补充完整后重试!");
 						$('#warningDiv').show();
 						return;
 					}
@@ -235,6 +239,24 @@
 					});
 				}
 			};
+
+			function isValidityOfUserName(){
+				var account = $('#account').val();
+				if ("" == account) {
+					return;
+				}
+				$.post('isValidityOfUserName',{account:account},function(result){
+					console.log(result);
+					if (0 == result.ret) {
+						$('#warningContent').text("用户名已被占用,请重试!");
+						$('#warningDiv').show();
+						$('#saveButton').attr('disabled','disabled');
+						return;
+					}
+					$('#warningDiv').hide();
+					$('#saveButton').removeAttr('disabled');
+				});
+			}
 		</script>
 		
 	</body>

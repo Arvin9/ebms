@@ -7,12 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import site.nebulas.beans.Response;
 import site.nebulas.beans.Users;
 import site.nebulas.service.OperationService;
 import site.nebulas.service.UsersService;
 import site.nebulas.util.DateUtil;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Honghui
@@ -44,10 +46,8 @@ public class UsersController {
     @ResponseBody
     public void usersInsert(Users users){
         users.setAddTime(DateUtil.getTime());
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"添加用户:"+ JSON.toJSON(users));
+        // 写入操作记录
+        operationService.inster("添加用户:"+ JSON.toJSON(users));
 
         usersService.inster(users);
     }
@@ -55,11 +55,24 @@ public class UsersController {
     @RequestMapping("usersUpdate")
     @ResponseBody
     public void usersUpdate(Users users){
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"修改用户动态事件:"+ JSON.toJSON(users));
+        // 写入操作记录
+        operationService.inster("修改用户动态事件:"+ JSON.toJSON(users));
 
         usersService.update(users);
+    }
+
+    @RequestMapping("isValidityOfUserName")
+    @ResponseBody
+    public Response isValidityOfUserName(Users users){
+        Response response = new Response();
+        List<Users> usersList = usersService.queryByParam(users);
+        if (null == usersList || usersList.isEmpty() || usersList.size() == 0) {
+            response.setRet(1);
+            response.setMsg("可以进行添加");
+        } else {
+            response.setRet(0);
+            response.setMsg("用户已存在");
+        }
+        return response;
     }
 }

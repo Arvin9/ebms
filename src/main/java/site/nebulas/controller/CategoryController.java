@@ -43,10 +43,8 @@ public class CategoryController {
     public void categoryInsert(Category category){
         category.setCreateTime(DateUtil.getTime());
 
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"添加类别:"+ JSON.toJSON(category));
+        // 写入操作记录
+        operationService.inster("添加类别:"+ JSON.toJSON(category));
 
         categoryService.inster(category);
     }
@@ -54,10 +52,8 @@ public class CategoryController {
     @RequestMapping("categoryUpdate")
     @ResponseBody
     public void categoryUpdate(Category category){
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"修改类别:"+ JSON.toJSON(category));
+        // 写入操作记录
+        operationService.inster("修改类别:"+ JSON.toJSON(category));
 
         categoryService.update(category);
     }

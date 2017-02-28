@@ -51,7 +51,8 @@ public class ShiroController {
 			
 			try {
 				subject.login(token);
-				operationService.inster(userAccount,"登陆成功");
+				// 写入操作记录
+				operationService.inster("登陆成功");
 //				System.out.println("用户是否是通过验证登陆："+subject.isAuthenticated());
 //				System.out.println("用户是否是通过记住我登陆："+subject.isRemembered());
 			}catch(UnknownAccountException uae){

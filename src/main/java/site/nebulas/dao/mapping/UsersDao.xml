@@ -18,6 +18,9 @@
 			<if test="id != null">
 				and id = #{id}
 			</if>
+			<if test="account != null and account != ''">
+				and account = #{account}
+			</if>
 		</where>
 		ORDER BY add_time DESC
 	</select>

@@ -47,10 +47,8 @@ public class BlankfillController {
     @ResponseBody
     public void blankfillInsert(Blankfill blankfill){
         blankfill.setCreateTime(DateUtil.getTime());
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"添加题目:"+ JSON.toJSON(blankfill));
+        // 写入操作记录
+        operationService.inster("添加题目:"+ JSON.toJSON(blankfill));
 
         blankfillService.inster(blankfill);
     }
@@ -58,10 +56,8 @@ public class BlankfillController {
     @RequestMapping("blankfillUpdate")
     @ResponseBody
     public void blankfillUpdate(Blankfill blankfill){
-        // 获得当前用户名
-        Subject subject = SecurityUtils.getSubject();
-        String userAccount = (String)subject.getPrincipal();
-        operationService.inster(userAccount,"修改题目:"+ JSON.toJSON(blankfill));
+        // 写入操作记录
+        operationService.inster("修改题目:"+ JSON.toJSON(blankfill));
 
         blankfillService.update(blankfill);
     }
