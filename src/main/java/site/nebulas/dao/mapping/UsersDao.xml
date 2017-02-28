@@ -35,7 +35,6 @@
 			salt ,
 			real_name ,
 			add_time ,
-			is_lock ,
 			add_man
 		)
 		values(
@@ -46,7 +45,6 @@
 			#{salt},
 			#{realName},
 			#{addTime},
-			#{isLock},
 			#{addMan}
 		)
 	</insert>

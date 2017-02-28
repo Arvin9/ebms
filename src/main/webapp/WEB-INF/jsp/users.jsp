@@ -77,7 +77,7 @@
 						<button id="insert" class="btn btn-success" onclick="Users.insert()">
 							<i class="glyphicon glyphicon-plus"></i> 添加
 						</button>
-						<button id="update" class="btn btn-warning" onclick="Users.update()">
+						<button id="update" class="btn btn-warning" onclick="Users.update()" disabled="disabled">
 							<i class="glyphicon glyphicon-pencil"></i> 修改
 						</button>
 						<button id="remove" class="btn btn-danger" onclick="Users.remove()" disabled="disabled">
@@ -111,7 +111,6 @@
 					singleSelect : true,
 					striped : true,
 					search : true,
-					searchOnEnterKey :true,
 					columns: [{
 						checkbox : true,
 						align: "center"
@@ -158,18 +157,72 @@
 						field: 'isLock',
 						align: "center",
 						valign: "middle",
-						title: '是否锁定'
+						title: '是否锁定',
+                        formatter: function(value){
+                            if (0 == value) {
+                                value = "否";
+                            }else {
+                                value = "是";
+                            }
+                            return value;
+                        }
 					},{
 						field: 'addTime',
 						align: "center",
 						valign: "middle",
 						title: '创建时间',
 						sortable: true
-					}]
+					},{
+                        field: 'manage',
+                        align: "center",
+                        valign: "middle",
+                        title: '操作',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }]
 				});
 				// 输入用户名是动态验证用户名是否有效
 				$("#account").keyup(isValidityOfUserName);
 			});
+
+            function operateFormatter(value, row, index) {
+                if (1 == row.isLock) {
+                    value = '<button type="button" id="unlock" class="btn btn-info">解锁</button>';
+                    value += '&nbsp;&nbsp;<button type="button" id="resetPassword" class="btn btn-primary">重置密码</button>';
+                } else if (0 == row.isLock){
+                    value = '<button type="button" id="lock" class="btn btn-warning">锁定</button>';
+                    value += '&nbsp;&nbsp;<button type="button" id="resetPassword" class="btn btn-primary">重置密码</button>';
+                }
+                return value;
+            }
+            window.operateEvents = {
+                'click #lock': function (e, value, row, index) {
+                    $.post("lockUser",{id:row.id},function(result){
+                        row.isLock = 1;
+                        $('#table').bootstrapTable('updateRow', {
+                            index: index,
+                            row:row
+                        });
+                    });
+                },
+                'click #resetPassword': function (e, value, row, index) {
+                    $.messager.confirm("重置密码",'即将重置 <span class="text-danger">'+ row.account +'</span> 的密码，请确认后执行！',function(){
+                        $.post("resetPassword",{id:row.id},function(result){
+                            $.messager.alert("重置成功!");
+                        });
+                    });
+                },
+                'click #unlock': function (e, value, row, index) {
+                    $.post("unlockUser",{id:row.id},function(result){
+                        row.isLock = 0;
+                        $('#table').bootstrapTable('updateRow', {
+                            index: index,
+                            row:row
+                        });
+                    });
+                }
+            };
+
 			var Users = {
 				commitUrl : "",
 
@@ -187,12 +240,12 @@
 						url: Users.commitUrl,
 						data: $('#modalForm').serialize(),
 						success: function(msg){
-							if("usersInsert" == Users.commitUrl){
-								$.messager.alert("消息","新增成功!" + msg);
+							if("registerUser" == Users.commitUrl){
+								$.messager.alert("消息","新增成功!");
 								$('#table').bootstrapTable('refresh');
 							}
 							if("usersUpdate" == Users.commitUrl){
-								$.messager.alert("消息","修改成功!" + msg);
+								$.messager.alert("消息","修改成功!");
 								$('#table').bootstrapTable('refresh');
 							}
 						}
@@ -203,7 +256,7 @@
 					$('#modalForm').form('clear');
 					$('#ModalLabel').text("添加");
 					$('#Modal').modal('show');
-					Users.commitUrl = "usersInsert";
+					Users.commitUrl = "registerUser";
 				},
 				update: function(){
 					var row = $('#table').bootstrapTable('getSelections');

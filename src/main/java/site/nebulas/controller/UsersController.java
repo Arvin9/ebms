@@ -42,15 +42,6 @@ public class UsersController {
         return usersService.queryByParam(users);
     }
 
-    @RequestMapping("usersInsert")
-    @ResponseBody
-    public void usersInsert(Users users){
-        users.setAddTime(DateUtil.getTime());
-        // 写入操作记录
-        operationService.inster("添加用户:"+ JSON.toJSON(users));
-
-        usersService.inster(users);
-    }
 
     @RequestMapping("usersUpdate")
     @ResponseBody
@@ -75,4 +66,57 @@ public class UsersController {
         }
         return response;
     }
+    /**
+     * 添加用户，初始化密码666666
+     * */
+    @RequestMapping("registerUser")
+    @ResponseBody
+    public Response registerUser(Users users){
+        Response response = new Response();
+        usersService.registerUser(users);
+        // 写入操作记录
+        operationService.inster("添加用户:"+ JSON.toJSON(users));
+        return response;
+    }
+
+    /**
+     * 锁定用户
+     * */
+    @RequestMapping("lockUser")
+    @ResponseBody
+    public Response lockUser(Users users){
+        Response response = new Response();
+        users.setIsLock(1);
+        usersService.update(users);
+        // 写入操作记录
+        operationService.inster("锁定用户:"+ JSON.toJSON(users));
+        return response;
+    }
+    /**
+     * 解锁用户
+     * */
+    @RequestMapping("unlockUser")
+    @ResponseBody
+    public Response unlockUser(Users users){
+        Response response = new Response();
+        users.setIsLock(0);
+        usersService.update(users);
+        // 写入操作记录
+        operationService.inster("解锁用户:"+ JSON.toJSON(users));
+        return response;
+    }
+
+    /**
+     * 重置用户密码
+     * */
+    @RequestMapping("resetPassword")
+    @ResponseBody
+    public Response resetPassword(Users users){
+        Response response = new Response();
+        usersService.resetPassword(users);
+        // 写入操作记录
+        operationService.inster("重置用户密码:"+ JSON.toJSON(users));
+        return response;
+    }
+
 }
