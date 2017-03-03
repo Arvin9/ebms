@@ -9,11 +9,11 @@
 	</select>
 	
 	<select id="queryUserLoginCount" resultType="java.util.Map">
-		SELECT LEFT(login_time,10) loginTime,COUNT(*) amount
-		FROM log_login
-		WHERE login_state = 1
-		GROUP BY loginTime
-		ORDER BY loginTime ASC
+		select left(d.create_time ,10) loginTime,COUNT(distinct d.user_id) amount
+		from think_dynamic d
+		where d.action_id = 1
+		group by loginTime
+		order by loginTime asc
 	</select>
 
 </mapper>

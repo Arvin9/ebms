@@ -56,9 +56,12 @@ public class ChartsService {
 		userVisitPageMap.put("seriesData", tempList);
     	return userVisitPageMap;
     }
-	
+
 	/**
-	 * 每日用户登录量
+	 * @author Honghui
+	 * @date 20170303
+	 * 查询每日登录用户数
+	 * 一个用户在当天登录多次，以一次有效登录计算
 	 * */
 	public Map<String,Object> queryUserLoginCount(){
 		Map<String,Object> userLoginCountMap = new HashMap<String,Object>();

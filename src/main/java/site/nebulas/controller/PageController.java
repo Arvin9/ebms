@@ -2,6 +2,7 @@ package site.nebulas.controller;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,10 +26,6 @@ public class PageController {
 	@RequestMapping("home")
 	public ModelAndView home(){
 		ModelAndView model = new ModelAndView("home");
-		//用户访问页面数据量
-		//model.addObject("userVisitPageMap", JSON.toJSON(chartsService.queryUserVisitPage()));
-		//每日用户登录量
-		//model.addObject("userLoginCountMap", JSON.toJSON(chartsService.queryUserLoginCount()));
 		return model;
 	}
 	

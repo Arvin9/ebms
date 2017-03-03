@@ -26,7 +26,7 @@
 				<div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-lg-12">
-	                        <h1 class="page-header">Dashboard</h1>
+	                        <h1 class="page-header">仪表盘</h1>
 	                    </div>
 	                    <!-- /.col-lg-12 -->
 	                </div>
@@ -35,7 +35,7 @@
 	                	<div class="col-md-7">
 		                    <div class="panel panel-default">
 		                        <div class="panel-heading">
-		                            <i class="fa fa-bar-chart-o fa-fw"></i> 每日用户登录量
+		                            <i class="fa fa-bar-chart-o fa-fw"></i> 每日登录用户数
 		                        </div>
 		                        <!-- /.panel-heading -->
 		                        <div class="panel-body">
@@ -75,8 +75,7 @@
 		<script type="text/javascript">
 		
 		
-			var userVisitPageMap = ${userVisitPageMap};
-			var userLoginCountMap = ${userLoginCountMap};
+
 			
 			function getHeight(){
 				var height = window.innerHeight - 260;
@@ -96,6 +95,19 @@
 		     	
 		        var userLoginCountLine = echarts.init(document.getElementById('userLoginCountLine'), 'infographic');
 		        userLoginCountLine.setOption(userLoginCountOption);
+
+				$.get("queryUserLoginCount",function(result){
+					if (result) {
+						userLoginCountLine.setOption({
+							xAxis: {
+								data: result.date
+							},series: [{
+								data: result.data
+							}]
+						});
+					}
+				});
+
 			});
 
 	        // 指定图表的配置项和数据
@@ -112,7 +124,7 @@
 				legend: {
 					orient: 'vertical',
 				    left: 'left',
-				    data: userVisitPageMap.legendData
+				    data: []
 				},
 				series : [
 					{
@@ -120,7 +132,7 @@
 				        type: 'pie',
 				        radius : '55%',
 				        center: ['50%', '60%'],
-				        data: userVisitPageMap.seriesData,
+				        data: [],
 				        itemStyle: {
 				        	emphasis: {
 				        		shadowBlur: 10,
@@ -135,7 +147,7 @@
 	        
 	        var userLoginCountOption = {
 	        	    title: {
-	        	        text: '每日用户登录量'
+	        	        text: '每日登录用户数'
 	        	    },
 	        	    tooltip: {
 	        	        trigger: 'axis',
@@ -145,7 +157,7 @@
 	        	    },
 	        	    legend: {
 	        	    	top: 'bottom',
-	        	        data:['用户登陆量']
+	        	        data:['登陆用户数']
 	        	    },
 	        	    grid: {
 	        	        left: '3%',
@@ -165,7 +177,7 @@
 	        	    xAxis: {
 	        	        type: 'category',
 	        	        boundaryGap: false,
-	        	        data: userLoginCountMap.date
+	        	        data: []
 	        	    },
 	        	    yAxis: {
 	        	        type: 'value',
@@ -193,7 +205,7 @@
 	        	            name:'用户登录量',
 	        	            type:'line',
 	        	            stack: '总量',
-	        	            data:userLoginCountMap.data
+	        	            data: []
 	        	        }
 	        	    ]
 	        	};

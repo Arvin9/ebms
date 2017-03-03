@@ -19,9 +19,12 @@ public class ChartsController {
 	public Object queryUserVisitPage(){
 		return chartsService.queryUserVisitPage();
 	}
-	
+
 	/**
-	 * 每日用户登录量
+	 * @author Honghui
+	 * @date 20170303
+	 * 查询每日登录用户数
+	 * 一个用户在当天登录多次，以一次有效登录计算
 	 * */
 	@RequestMapping("queryUserLoginCount")
 	@ResponseBody
