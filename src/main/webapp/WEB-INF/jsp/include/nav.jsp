@@ -25,12 +25,11 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li>
+                            <a href="passwordModif"><i class="fa fa-gear fa-fw"></i> 密码修改</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                        <li>
+                            <a href="logout"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -66,10 +65,10 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="exerciseChart">练习题Chart</a>
+                                    <a href="exerciseChart">用户分析</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="morris.html">题目分析</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -117,7 +116,7 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">&nbsp;&nbsp;密码修改</a>
+                                    <a href="passwordModif">&nbsp;&nbsp;密码修改</a>
                                 </li>
                                 <li>
                                     <a href="paramConfig">&nbsp;&nbsp;参数配置</a>

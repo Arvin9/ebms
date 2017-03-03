@@ -37,7 +37,9 @@
                         Press enter key or click the Submit button
                     </div>
                     <form method="post" action="loginIn" class="bootstrap-admin-login-form" id="form">
-                        <h1>Login</h1>
+                        <div class="form-group">
+                            <h3>在线练习后台管理系统</h3>
+                        </div>
                         <div class="form-group">
                             <input class="form-control" type="text" name="userAccount" id="userAccount" placeholder="用户名">
                         </div>
@@ -47,13 +49,9 @@
                         <div class="form-group" hidden="hidden">
                             <input class="form-control" type="password" name="password" id="password" >
                         </div>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="remember_me">
-                                Remember me
-                            </label>
+                        <div class="form-group" >
+                            <a class="btn btn-lg btn-primary btn-block" onclick="login()">登录</a>
                         </div>
-                        <a class="btn btn-lg btn-primary btn-block" onclick="login()">Sign in</a>
                     </form>
                 </div>
             </div>

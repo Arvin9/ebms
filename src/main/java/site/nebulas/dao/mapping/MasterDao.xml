@@ -15,21 +15,15 @@
 	</select>
 	
 	<insert id="createUser">
-		insert into think_ad_user(role_id,user_account,user_mailbox,password,salt,real_name,add_time,is_lock,add_man,is_delete)
-		values(#{roleId},#{userAccount},#{userMailbox},#{password}, #{salt},#{realName},#{addTime},#{isLock},#{addMan},#{isDelete})
+		insert into think_ad_user(user_account,password,salt,add_time)
+		values(#{userAccount},#{password}, #{salt},#{addTime})
 	</insert>
 	
 	<update id="updateUser">
 		update think_ad_user
 		<set>
-			<if test="roleId !=null">
-				role_id = #{roleId},
-			</if>
 			<if test="userAccount !=null and userAccount !='' ">
 				user_account = #{userAccount},
-			</if>
-			<if test="userMailbox !=null and userMailbox !='' ">
-				user_mailbox = #{userMailbox},
 			</if>
 			<if test="password !=null and password !='' ">
 				password = #{password},
@@ -38,16 +32,7 @@
 				salt = #{salt},
 			</if>
 			<if test="addTime !=null and addTime !='' ">
-				real_name = #{addTime},
-			</if>
-			<if test="isLock !=null">
-				is_lock = #{isLock},
-			</if>
-			<if test="addMan !=null and addMan !='' ">
-				add_man = #{addMan},
-			</if>
-			<if test="isDelete !=null">
-				is_delete = #{isDelete},
+				add_time = #{addTime},
 			</if>
 		</set>
 		where user_account = #{userAccount}

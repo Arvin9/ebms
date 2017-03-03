@@ -37,3 +37,5 @@
 	
     <!-- Fine Uploader JS file -->
     <script src="${pageContext.request.contextPath}/resources/fineUploader/js/fine-uploader.js"></script>
+
+    <script type="text/javascript" src="${ctx}/resources/js/md5.min.js"></script>

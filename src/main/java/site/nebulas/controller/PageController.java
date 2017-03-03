@@ -28,8 +28,16 @@ public class PageController {
 		ModelAndView model = new ModelAndView("home");
 		return model;
 	}
-	
-	
+
+	/**
+	 * 管理员密码修改页面
+	 * */
+	@RequestMapping("passwordModif")
+	public ModelAndView passwordModif(){
+		ModelAndView model = new ModelAndView("passwordModif");
+		return model;
+	}
+
 	/**
 	 * 模板页面
 	 * */

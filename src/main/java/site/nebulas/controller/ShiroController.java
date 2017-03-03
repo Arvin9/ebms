@@ -18,7 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import org.springframework.web.bind.annotation.ResponseBody;
 import site.nebulas.beans.Master;
+import site.nebulas.beans.Response;
 import site.nebulas.service.OperationService;
 import site.nebulas.service.MasterService;
 
@@ -82,7 +84,22 @@ public class ShiroController {
 		}
 		return "login";
 	}
-	
+
+    /**
+     * 模板页面
+     * */
+    @RequestMapping("changePassword")
+    @ResponseBody
+    public Response changePassword(String newPassword){
+        Response response = new Response();
+        // 获得当前用户名
+        Subject subject = SecurityUtils.getSubject();
+        String userAccount = (String)subject.getPrincipal();
+        masterService.changePassword(userAccount, newPassword);
+        response.setRet(200);
+        return response;
+    }
+
 }
 
 

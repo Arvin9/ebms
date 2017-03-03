@@ -49,54 +49,11 @@ public class MasterService {
      * @param newPassword
      */
     public void changePassword(String userAccount, String newPassword) {
-        Master master =userDao.findByUserAccount(userAccount);
+        Master master = userDao.findByUserAccount(userAccount);
         master.setPassword(newPassword);
         passwordHelper.encryptPassword(master);
         userDao.updateUser(master);
     }
-
-    
-    
-    /**
-     * 添加用户-角色关系
-     * @param userId
-     * @param roleIds
-     
-    public void correlationRoles(Long userId, Long... roleIds) {
-        userDao.correlationRoles(userId, roleIds);
-    }
-     */
-    
-    /**
-     * 移除用户-角色关系
-     * @param userId
-     * @param roleIds
-     
-    public void uncorrelationRoles(Long userId, Long... roleIds) {
-        userDao.uncorrelationRoles(userId, roleIds);
-    }
-     */
-    
-
-    /**
-     * 根据用户名查找其角色
-     * @param username
-     * @return
-     
-    public Set<String> findRoles(String username) {
-        return userDao.findRoles(username);
-    }
-     */
-    
-    /**
-     * 根据用户名查找其权限
-     * @param username
-     * @return
-     
-    public Set<String> findPermissions(String username) {
-        return userDao.findPermissions(username);
-    }
-	*/
 }
 
 
