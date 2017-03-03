@@ -11,7 +11,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	
-	    <title>用户管理</title>
+	    <title>参数配置</title>
 		<jsp:include page="include/header.jsp"></jsp:include>
 		
 
@@ -26,7 +26,7 @@
 				<div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-lg-12">
-	                        <h1 class="page-header">用户管理</h1>
+	                        <h1 class="page-header">参数配置</h1>
 	                    </div>
 	                    <!-- /.col-lg-12 -->
 	                </div>
@@ -43,11 +43,9 @@
 										<div class="form-group" id="warningDiv" hidden>
 											<div class="input-group" style="width:100%">
 												<div class="alert alert-warning alert-dismissible" role="alert">
-													<!--
 													<button type="button" class="close" data-dismiss="alert">
 														<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 													</button>
-													-->
 													<strong>Warning!</strong> <span id="warningContent"></span>
 												</div>
 											</div>
@@ -60,35 +58,46 @@
 										</div>
 										<div class="form-group">
 											<div class="input-group">
-												<label class="input-group-addon">用户名</label>
-												<input type="text" class="form-control" id="account" name="account"  required="required" />
+												<label class="input-group-addon">属性名</label>
+												<input type="text" class="form-control" id="name" name="name"  required="required" />
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<label class="input-group-addon">属性值</label>
+												<input type="text" class="form-control" id="value" name="value"  required="required" />
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<label class="input-group-addon">描述</label>
+												<input type="text" class="form-control" id="descr" name="descr"  />
 											</div>
 										</div>
 									</form>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-primary" id="saveButton" onclick="Users.save()" disabled="disabled">保存</button>
+									<button type="button" class="btn btn-primary" onclick="Action.save()">保存</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div id="toolbar">
-						<button id="insert" class="btn btn-success" onclick="Users.insert()">
+						<button id="insert" class="btn btn-success" onclick="Action.insert()" disabled="disabled">
 							<i class="glyphicon glyphicon-plus"></i> 添加
 						</button>
-						<button id="update" class="btn btn-warning" onclick="Users.update()" disabled="disabled">
+						<button id="update" class="btn btn-warning" onclick="Action.update()">
 							<i class="glyphicon glyphicon-pencil"></i> 修改
 						</button>
-						<button id="remove" class="btn btn-danger" onclick="Users.remove()" disabled="disabled">
+						<button id="remove" class="btn btn-danger" onclick="Action.remove()" disabled="disabled">
 							<i class="glyphicon glyphicon-remove"></i> 删除
 						</button>
 					</div>
 					<table id="table"></table>
-	                
+
 	            </div>
 			</div>
-
 
 		</div>
 		<!-- /container -->
@@ -96,9 +105,9 @@
 		
 		<script type="text/javascript">
 			$(function(){
-				Users.init();
+				Action.init();
 				$('#table').bootstrapTable({
-					url: '${ctx}/usersQueryByParam',
+					url: '${ctx}/sysParamQueryByParam',
 					toolbar: "#toolbar",
 					height: $(window).height() - 200,
 					cache: false,
@@ -111,6 +120,7 @@
 					singleSelect : true,
 					striped : true,
 					search : true,
+					searchOnEnterKey :true,
 					columns: [{
 						checkbox : true,
 						align: "center"
@@ -122,130 +132,52 @@
 						sortable: true,
 						visible: false
 					},{
-						field: 'account',
+						field: 'name',
 						align: "center",
 						valign: "middle",
-						title: '用户名'
+						title: '属性名'
 					},{
-						field: 'mailbox',
+						field: 'value',
 						align: "center",
 						valign: "middle",
-						title: '邮箱'
+						title: '属性值'
 					},{
-						field: 'password',
+						field: 'descr',
 						align: "center",
 						valign: "middle",
-						title: '密码',
-						visible: false
+						title: '描述'
 					},{
-						field: 'salt',
-						align: "center",
-						valign: "middle",
-						title: '盐',
-						visible: false
-					},{
-						field: 'realName',
-						align: "center",
-						valign: "middle",
-						title: '别名'
-					},{
-						field: 'addMan',
-						align: "center",
-						valign: "middle",
-						title: '添加人'
-					},{
-						field: 'isLock',
-						align: "center",
-						valign: "middle",
-						title: '是否锁定',
-                        formatter: function(value){
-                            if (0 == value) {
-                                value = "否";
-                            }else {
-                                value = "是";
-                            }
-                            return value;
-                        }
-					},{
-						field: 'addTime',
+						field: 'createTime',
 						align: "center",
 						valign: "middle",
 						title: '创建时间',
 						sortable: true
-					},{
-                        field: 'manage',
-                        align: "center",
-                        valign: "middle",
-                        title: '操作',
-                        events: operateEvents,
-                        formatter: operateFormatter
-                    }]
+					}]
 				});
-				// 输入用户名是动态验证用户名是否有效
-				$("#account").keyup(isValidityOfUserName);
 			});
-
-            function operateFormatter(value, row, index) {
-                if (1 == row.isLock) {
-                    value = '<button type="button" id="unlock" class="btn btn-info">解锁</button>';
-                    value += '&nbsp;&nbsp;<button type="button" id="resetPassword" class="btn btn-primary">重置密码</button>';
-                } else if (0 == row.isLock){
-                    value = '<button type="button" id="lock" class="btn btn-warning">锁定</button>';
-                    value += '&nbsp;&nbsp;<button type="button" id="resetPassword" class="btn btn-primary">重置密码</button>';
-                }
-                return value;
-            }
-            window.operateEvents = {
-                'click #lock': function (e, value, row, index) {
-                    $.post("lockUser",{id:row.id},function(result){
-                        row.isLock = 1;
-                        $('#table').bootstrapTable('updateRow', {
-                            index: index,
-                            row:row
-                        });
-                    });
-                },
-                'click #resetPassword': function (e, value, row, index) {
-                    $.messager.confirm("重置密码",'即将重置 <span class="text-danger">'+ row.account +'</span> 的密码，请确认后执行！',function(){
-                        $.post("resetPassword",{id:row.id,account:row.account},function(result){
-                            $.messager.alert("重置成功!");
-                        });
-                    });
-                },
-                'click #unlock': function (e, value, row, index) {
-                    $.post("unlockUser",{id:row.id},function(result){
-                        row.isLock = 0;
-                        $('#table').bootstrapTable('updateRow', {
-                            index: index,
-                            row:row
-                        });
-                    });
-                }
-            };
-
-			var Users = {
+			var Action = {
 				commitUrl : "",
 
 				init: function() {
 					$('#Modal').modal('hide');
 				},
 				save: function(){
-					if(!$('#account').val()){
-						$('#warningContent').text("用户名不能为空,请补充完整后重试!");
+					if(!$('#name').val() || !$('#value').val()){
+						$('#warningContent').text("属性名和属性值不能为空,请补充完整后重试!");
 						$('#warningDiv').show();
 						return;
 					}
 					$.ajax({
 						type: "POST",
-						url: Users.commitUrl,
+						url: Action.commitUrl,
 						data: $('#modalForm').serialize(),
 						success: function(msg){
-							if("registerUser" == Users.commitUrl){
-								$.messager.alert("消息","新增成功!");
+							if("sysParamInsert" == Action.commitUrl){
+								$.messager.alert("消息","新增成功!" + msg);
 								$('#table').bootstrapTable('refresh');
 							}
-							if("usersUpdate" == Users.commitUrl){
-								$.messager.alert("消息","修改成功!");
+							if("sysParamUpdate" == Action.commitUrl){
+								$.messager.alert("消息","修改成功!" + msg);
 								$('#table').bootstrapTable('refresh');
 							}
 						}
@@ -256,7 +188,8 @@
 					$('#modalForm').form('clear');
 					$('#ModalLabel').text("添加");
 					$('#Modal').modal('show');
-					Users.commitUrl = "registerUser";
+					$('#name').removeAttr('readonly');
+					Action.commitUrl = "sysParamInsert";
 				},
 				update: function(){
 					var row = $('#table').bootstrapTable('getSelections');
@@ -266,16 +199,16 @@
 					}
 					row = row[0];
 
-					Users.commitUrl = "usersUpdate";
+					Action.commitUrl = "sysParamUpdate";
 
 					$('#modalForm').form('clear');
 					$('#ModalLabel').text("修改");
 					$('#modalForm').form('load',row);
-
+					$('#name').attr('readonly','readonly');
 					$('#Modal').modal('show');
 				},
 				remove: function(){
-					Users.commitUrl = "";
+					Action.commitUrl = "";
 
 					var row = $('#table').bootstrapTable('getSelections');
 					if ("" == row){
@@ -292,24 +225,7 @@
 					});
 				}
 			};
-
-			function isValidityOfUserName(){
-				var account = $('#account').val();
-				if ("" == account) {
-					return;
-				}
-				$.post('isValidityOfUserName',{account:account},function(result){
-					console.log(result);
-					if (0 == result.ret) {
-						$('#warningContent').text("用户名已被占用,请重试!");
-						$('#warningDiv').show();
-						$('#saveButton').attr('disabled','disabled');
-						return;
-					}
-					$('#warningDiv').hide();
-					$('#saveButton').removeAttr('disabled');
-				});
-			}
+		
 		</script>
 		
 	</body>
