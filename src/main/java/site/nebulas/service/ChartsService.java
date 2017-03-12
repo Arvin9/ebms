@@ -17,47 +17,6 @@ public class ChartsService {
 	private ChartsDao chartsDao;
 
 	/**
-	 * 用户访问页面数据量
-	 * */
-	public Map<String,Object> queryUserVisitPage(){
-		Map<String,Object> userVisitPageMap = new HashMap<String,Object>();
-		
-		String[] legendData = {"答题页面","留言页面","客服机器人页面"};
-		userVisitPageMap.put("legendData", legendData);
-		
-		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
-		list = chartsDao.queryUserVisitPage();
-		
-		List<Map<String,Object>> tempList = new ArrayList<Map<String,Object>>();
-		Map<String,Object> tempMap;
-		String type;
-		for(Map<String,Object> m : list){
-			//tempList.add(tempMap)添加的是句柄,若放在循环外,则内容全为最终值
-			tempMap = new HashMap<String,Object>();
-			type = m.get("dynamicTyle").toString();
-			if(null == type)
-				continue;
-			if("2".equals(type)){
-				tempMap.put("value", m.get("amount"));
-				tempMap.put("name", "答题页面");
-				tempList.add(tempMap);
-			}
-			if("3".equals(type)){
-				tempMap.put("value", m.get("amount"));
-				tempMap.put("name", "留言页面");
-				tempList.add(tempMap);
-			}
-			if("5".equals(type)){
-				tempMap.put("value", m.get("amount"));
-				tempMap.put("name", "客服机器人页面");
-				tempList.add(tempMap);
-			}
-		}
-		userVisitPageMap.put("seriesData", tempList);
-    	return userVisitPageMap;
-    }
-
-	/**
 	 * @author Honghui
 	 * @date 20170303
 	 * 查询每日登录用户数
@@ -91,6 +50,42 @@ public class ChartsService {
 		}
 		userLoginCountMap.put("data", dataList);
 		return userLoginCountMap;
+	}
+
+	/**
+	 * 用户访问页面数据量
+	 * */
+	public Map<String,Object> queryUserVisitPage(){
+		Map<String,Object> userVisitPageMap = new HashMap<String,Object>();
+
+		String[] legendData = {"答题页面","分析页面"};
+		userVisitPageMap.put("legendData", legendData);
+
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		list = chartsDao.queryUserVisitPage();
+
+		List<Map<String,Object>> tempList = new ArrayList<Map<String,Object>>();
+		Map<String,Object> tempMap;
+		String type;
+		for(Map<String,Object> m : list){
+			//tempList.add(tempMap)添加的是句柄,若放在循环外,则内容全为最终值
+			tempMap = new HashMap<String,Object>();
+			type = m.get("action").toString();
+			if(null == type)
+				continue;
+			if("2".equals(type)){
+				tempMap.put("value", m.get("amount"));
+				tempMap.put("name", "答题页面");
+				tempList.add(tempMap);
+			}
+			if("3".equals(type)){
+				tempMap.put("value", m.get("amount"));
+				tempMap.put("name", "分析页面");
+				tempList.add(tempMap);
+			}
+		}
+		userVisitPageMap.put("seriesData", tempList);
+		return userVisitPageMap;
 	}
 }
 

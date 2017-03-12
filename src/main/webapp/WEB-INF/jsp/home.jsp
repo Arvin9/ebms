@@ -73,10 +73,7 @@
 		<jsp:include page="include/footer.jsp"></jsp:include>
 		
 		<script type="text/javascript">
-		
-		
 
-			
 			function getHeight(){
 				var height = window.innerHeight - 260;
 				if(height < 400) height = 400
@@ -107,6 +104,15 @@
 						});
 					}
 				});
+				$.get("queryUserVisitPage",function(result){
+					if (result) {
+						userVisitPagePie.setOption({
+							series: [{
+								data: result.seriesData
+							}]
+						});
+					}
+				});
 
 			});
 
@@ -119,7 +125,7 @@
 				},
 				tooltip : {
 					trigger: 'item',
-				   	formatter: "{a} <br/>{b} : {c} ({d}%)"
+				   	formatter: "{a} <br/>{b} : {c}次 ({d}%)"
 				},
 				legend: {
 					orient: 'vertical',
@@ -128,7 +134,7 @@
 				},
 				series : [
 					{
-				    	name: '访问页面',
+				    	name: '访问量',
 				        type: 'pie',
 				        radius : '55%',
 				        center: ['50%', '60%'],

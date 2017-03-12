@@ -10,15 +10,6 @@ import site.nebulas.service.ChartsService;
 public class ChartsController {
 	@Resource
 	ChartsService chartsService;
-	
-	/**
-	 * 用户访问页面数据量
-	 * */
-	@RequestMapping("queryUserVisitPage")
-	@ResponseBody
-	public Object queryUserVisitPage(){
-		return chartsService.queryUserVisitPage();
-	}
 
 	/**
 	 * @author Honghui
@@ -30,6 +21,15 @@ public class ChartsController {
 	@ResponseBody
 	public Object queryUserLoginCount(){
 		return chartsService.queryUserLoginCount();
+	}
+
+	/**
+	 * 用户访问页面数据量
+	 * */
+	@RequestMapping("queryUserVisitPage")
+	@ResponseBody
+	public Object queryUserVisitPage(){
+		return chartsService.queryUserVisitPage();
 	}
 	
 	

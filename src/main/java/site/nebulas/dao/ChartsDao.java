@@ -10,7 +10,6 @@ import java.util.Map;
  */
 public interface ChartsDao {
 
-	public List<Map<String,Object>> queryUserVisitPage();
 	/**
 	 * @author Honghui
 	 * @date 20170303
@@ -18,5 +17,11 @@ public interface ChartsDao {
 	 * 一个用户在当天登录多次，以一次有效登录计算
 	 * */
 	public List<Map<String,Object>> queryUserLoginCount();
+	/**
+	 * @author Honghui
+	 * @date 20170312
+	 * 查询访问各个页面量
+	 * */
+	public List<Map<String,Object>> queryUserVisitPage();
 }
 

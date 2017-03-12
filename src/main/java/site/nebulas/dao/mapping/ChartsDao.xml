@@ -3,9 +3,9 @@
 <mapper namespace="site.nebulas.dao.ChartsDao">
 
 	<select id="queryUserVisitPage" resultType="java.util.Map">
-		SELECT dynamic_tyle dynamicTyle ,COUNT(*) amount
-		FROM dynamic
-		GROUP BY dynamic_tyle
+		select d.action_id action,count(d.action_id) amount
+		from think_dynamic d
+		group by d.action_id
 	</select>
 	
 	<select id="queryUserLoginCount" resultType="java.util.Map">
