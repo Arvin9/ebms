@@ -31,6 +31,15 @@ public class ChartsController {
 	public Object queryUserVisitPage(){
 		return chartsService.queryUserVisitPage();
 	}
+
+	/**
+	 * 用户总学习指标
+	 * */
+	@RequestMapping("queryTotalStudyIndex")
+	@ResponseBody
+	public Object queryTotalStudyIndex(){
+		return chartsService.queryTotalStudyIndex();
+	}
 	
 	
 }

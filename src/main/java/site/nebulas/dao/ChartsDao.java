@@ -23,5 +23,12 @@ public interface ChartsDao {
 	 * 查询访问各个页面量
 	 * */
 	public List<Map<String,Object>> queryUserVisitPage();
+
+	/**
+	 * @author Honghui
+	 * @date 20170313
+	 * 查询总学习指标
+	 * */
+	public List<Map<String,Object>> queryTotalStudyIndex();
 }
 

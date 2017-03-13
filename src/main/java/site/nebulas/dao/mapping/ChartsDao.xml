@@ -16,4 +16,13 @@
 		order by loginTime asc
 	</select>
 
+	<select id="queryTotalStudyIndex" resultType="java.util.Map">
+		select c.`name`,count(r.blankfill_id) max,sum(r.is_correct) amount
+		from (think_record r
+			left join think_blankfill b
+			on r.blankfill_id=b.id)
+		left join think_category c
+		on b.category_id=c.id
+		group by b.category_id
+	</select>
 </mapper>

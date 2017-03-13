@@ -106,7 +106,8 @@
 					field: 'categoryName',
 					align: "center",
 					valign: "middle",
-					title: '题目类别'
+					title: '题目类别',
+					sortable: true
 				},{
 			        field: 'caption',
 			        align: "center",
@@ -128,7 +129,8 @@
 			        field: 'correct',
 			        align: "center",
 			        valign: "middle",
-			        title: '回答正确数'
+			        title: '回答正确数',
+					sortable: true
 			    }]
 			});		
 		});

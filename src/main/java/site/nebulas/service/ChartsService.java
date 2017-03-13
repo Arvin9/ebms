@@ -87,6 +87,10 @@ public class ChartsService {
 		userVisitPageMap.put("seriesData", tempList);
 		return userVisitPageMap;
 	}
+
+	public List<Map<String,Object>> queryTotalStudyIndex(){
+		return chartsDao.queryTotalStudyIndex();
+	}
 }
 
 

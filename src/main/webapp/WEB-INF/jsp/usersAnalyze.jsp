@@ -200,7 +200,7 @@
 				legend: {
 					x : 'right',
 					bottom : '20px',
-					data:['降水量','蒸发量']
+					data:[]
 				},
 				toolbox: {
 					show : true,
