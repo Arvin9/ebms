@@ -61,4 +61,16 @@ public class BlankfillController {
 
         blankfillService.update(blankfill);
     }
+    /**
+     * 题目分析页面
+     * */
+    @RequestMapping("blankfillAnalyze")
+    public ModelAndView blankfillAnalyze(){
+        return new ModelAndView("blankfillAnalyze");
+    }
+    @RequestMapping("queryBlankfillAnalyze")
+    @ResponseBody
+    public Object queryBlankfillAnalyze(){
+        return blankfillService.queryBlankfillAnalyze();
+    }
 }

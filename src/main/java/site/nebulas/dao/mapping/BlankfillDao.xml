@@ -63,4 +63,15 @@
 		where id = #{id}
 	</update>
 
+	<select id="queryBlankfillAnalyze" resultType="java.util.Map">
+		select c.`name` categoryName,b.id id,b.caption caption,b.`subject` `subject`,b.solution solution,sum(r.is_correct) correct
+		from (think_record r
+			left join think_blankfill b
+			on r.blankfill_id=b.id)
+		left join think_category c
+		on c.id=b.category_id
+		group by r.blankfill_id
+		order by correct asc
+	</select>
+
 </mapper>

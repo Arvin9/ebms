@@ -2,6 +2,7 @@ package site.nebulas.dao;
 
 import site.nebulas.beans.Blankfill;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Honghui
@@ -14,6 +15,8 @@ public interface BlankfillDao {
     public void inster(Blankfill blankfill);
     
     public void update(Blankfill blankfill);
+
+    public List<Map> queryBlankfillAnalyze();
 
 }
 

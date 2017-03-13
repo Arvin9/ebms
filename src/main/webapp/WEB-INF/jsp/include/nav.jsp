@@ -68,7 +68,7 @@
                                     <a href="usersAnalyze">用户分析</a>
                                 </li>
                                 <li>
-                                    <a href="usersAnalyze">题目分析</a>
+                                    <a href="blankfillAnalyze">题目分析</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

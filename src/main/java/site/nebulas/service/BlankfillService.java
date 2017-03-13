@@ -6,6 +6,7 @@ import site.nebulas.dao.BlankfillDao;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BlankfillService {
@@ -22,6 +23,10 @@ public class BlankfillService {
     
     public void update(Blankfill blankfill){
         blankfillDao.update(blankfill);
+    }
+
+    public List<Map> queryBlankfillAnalyze(){
+        return blankfillDao.queryBlankfillAnalyze();
     }
    
 }
