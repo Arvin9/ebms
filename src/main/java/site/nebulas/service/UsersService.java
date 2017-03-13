@@ -10,9 +10,9 @@ import site.nebulas.dao.UsersDao;
 import site.nebulas.util.DateUtil;
 import site.nebulas.util.MD5Util;
 import site.nebulas.util.UUIDUtil;
-
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UsersService {
@@ -69,6 +69,18 @@ public class UsersService {
         users.setPassword(md5_password);
 
         this.update(users);
+    }
+
+    public List<Map> queryUsersAnalyze(){
+        return usersDao.queryUsersAnalyze();
+    }
+
+    public Map queryCompletionDegree(Users users){
+        return usersDao.queryCompletionDegree(users);
+    }
+
+    public List<Map> queryStudyIndex(Users users){
+        return usersDao.queryStudyIndex(users);
     }
 }
 

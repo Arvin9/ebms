@@ -118,5 +118,36 @@ public class UsersController {
         operationService.inster("重置用户密码:"+ JSON.toJSON(users));
         return response;
     }
+    /**
+     * 用户分析页面
+     * */
+    @RequestMapping("usersAnalyze")
+    public ModelAndView usersAnalyze(){
+        return new ModelAndView("usersAnalyze");
+    }
+    /**
+     * 查询用户分析
+     * */
+    @RequestMapping("queryUsersAnalyze")
+    @ResponseBody
+    public Object queryUsersAnalyze(){
+        return usersService.queryUsersAnalyze();
+    }
+    /**
+     * 查询用户完成度
+     * */
+    @RequestMapping("queryCompletionDegree")
+    @ResponseBody
+    public Object queryCompletionDegree(Users users){
+        return usersService.queryCompletionDegree(users);
+    }
 
+    /**
+     * 查询用户学习指标
+     * */
+    @RequestMapping("queryStudyIndex")
+    @ResponseBody
+    public Object queryStudyIndex(Users users){
+        return usersService.queryStudyIndex(users);
+    }
 }

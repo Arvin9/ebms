@@ -65,10 +65,10 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="exerciseChart">用户分析</a>
+                                    <a href="usersAnalyze">用户分析</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">题目分析</a>
+                                    <a href="usersAnalyze">题目分析</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

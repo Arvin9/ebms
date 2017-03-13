@@ -34,7 +34,7 @@
                 <div class="col-lg-12">
                     <div class="alert alert-info">
                         <a class="close" data-dismiss="alert" href="#">&times;</a>
-                        Press enter key or click the Submit button
+                        Welcome
                     </div>
                     <form method="post" action="loginIn" class="bootstrap-admin-login-form" id="form">
                         <div class="form-group">

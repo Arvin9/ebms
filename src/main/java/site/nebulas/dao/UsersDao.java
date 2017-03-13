@@ -2,6 +2,7 @@ package site.nebulas.dao;
 
 import site.nebulas.beans.Users;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Honghui
@@ -15,5 +16,10 @@ public interface UsersDao {
     
     public void update(Users users);
 
+    public List<Map> queryUsersAnalyze();
+
+    public Map queryCompletionDegree(Users users);
+
+    public List<Map> queryStudyIndex(Users users);
 }
 

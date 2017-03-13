@@ -79,5 +79,33 @@
 		</set>
 		where id = #{id}
 	</update>
+	<select id="queryUsersAnalyze" resultType="java.util.Map">
+		select u.id id,u.account account,u.real_name realName,sum(r.is_correct) answerCorrect
+		from think_user u
+		left join think_record r
+		on u.id=r.user_id
+		group by u.id
+		order by answerCorrect desc
+	</select>
+
+	<select id="queryCompletionDegree" resultType="java.util.Map">
+		select count(b.id) blankfills,sum(r.is_correct) answers
+	 	from think_blankfill b
+	 	left join (
+	  		select *
+			from think_record r
+	  		where  r.user_id = #{id} ) r
+		on b.id = r.blankfill_id
+	</select>
+	<select id="queryStudyIndex" resultType="java.util.Map">
+		select c.id id,c.`name` text,count(b.category_id) max,s.count count
+		from (think_blankfill b
+			left join think_category c
+			on b.category_id=c.id)
+		left join think_statistics s
+		on b.category_id=s.category_id
+		where s.user_id = #{id}
+		group by c.id
+	</select>
 
 </mapper>
